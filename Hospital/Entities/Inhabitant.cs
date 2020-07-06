@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Hospital.Entities
 {
     public abstract class Inhabitant : AuditableEntity
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
         public string Middlename { get; set; }
-
-         //implement many to one
         
 
 

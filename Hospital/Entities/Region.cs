@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Hospital.Entities
@@ -10,10 +12,13 @@ namespace Hospital.Entities
     number of inhabitants
     collection of inhabitants
      */
-    public class Region : AuditableEntity 
+    public class Region : AuditableEntity
     {
+        [Required]
         public string Name { get; set; }
-       public virtual ICollection<Patient> Patients { get; set; }//implement many to many
+        [ForeignKey("Patient")]
+        public virtual ICollection<Patient> Patients { get; set; }//implement many to many
+        [ForeignKey("GP")]
         public virtual ICollection<GP> GPs { get; set; } //implement many to many
 
     }
