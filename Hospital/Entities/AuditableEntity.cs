@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Hospital.Entities
 {
+    //Comment
     public abstract class AuditableEntity : Entity
     {
         public DateTime CreatedAt { get; set; }
