@@ -6,8 +6,7 @@ using System.Text;
 namespace Hospital.Entities
 {
     public class Doctor : Inhabitant
-    {
-        [Required]
+    { 
         public TimeSpan Work_time { get; set; }
 
         public Doctor(string Name, string Surname, string Middlename, TimeSpan Work_time ) : base(Name,Surname,Middlename)

@@ -8,17 +8,16 @@ namespace Hospital.Entities
 {
     public class Patient : Inhabitant
     {
-        [Required]
         public int InsuranceNumber { get; set; }
-        [ForeignKey("Region")]
-        public virtual Region Region { get; set; }
-        public Patient(string Name, string Surname, string Middlename, Region Region) : base(Name,Surname,Middlename) {
-            this.Region = Region;
-        }
-        public Patient(string Name, string Surname, Region Region) : base(Name, Surname) {
-            this.Region = Region;
-        }
-       
 
+        public int RegionId { get; set; }
+        public Region Region { get; set; }
+
+        public Patient(string Name, string Surname, string Middlename, int insuranceNumber) : base(Name,Surname,Middlename) {
+            InsuranceNumber = insuranceNumber;
+        }
+        public Patient(string Name, string Surname, int insuranceNumber) : base(Name, Surname) {
+            InsuranceNumber = insuranceNumber;
+        }
     }
 }

@@ -7,9 +7,7 @@ namespace Hospital.Entities
 {
     public abstract class Inhabitant : AuditableEntity
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Surname { get; set; }
         public string Middlename { get; set; }
         

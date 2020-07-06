@@ -7,19 +7,12 @@ using System.Text;
 namespace Hospital.Entities
 {
 
-    /*TODO
-     to Add:
-    number of inhabitants
-    collection of inhabitants
-     */
+  
     public class Region : AuditableEntity
     {
-        [Required]
         public string Name { get; set; }
-        [ForeignKey("Patient")]
-        public virtual ICollection<Patient> Patients { get; set; }//implement many to many
-        [ForeignKey("GP")]
-        public virtual ICollection<GP> GPs { get; set; } //implement many to many
+        public List<Patient> Patients { get; set; }//implement one any to many
+        public List<GP> GPs { get; set; } //implement many to many
 
     }
 }
