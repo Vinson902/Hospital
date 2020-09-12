@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Hospital</name>
+    </assembly>
+    <members>
+        <member name="T:Hospital.Entities.AuditableEntity">
+            <summary>
+            Basic class, represents two columns. 
+            CreatedAt - when the line was created
+            UpdatedAt - when the line was updated
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.AuditableEntity.CreatedAt">
+            <summary>
+            DataTime when line was created
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.AuditableEntity.UpdatedAt">
+            <summary>
+            DataTime when the line was updated
+            </summary>
+        </member>
+        <member name="T:Hospital.Entities.Doctor">
+            <summary>
+            represents a table in a "Hospital" database which stores doctors' full names and their working time 
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Doctor.Work_time">
+            <summary>
+            It is an interval of time when a doctor works
+            </summary>
+        </member>
+        <member name="M:Hospital.Entities.Doctor.#ctor(System.String,System.String,System.String,System.TimeSpan)">
+            <summary>
+            <c> inherit constuctor</c> <see cref="M:Hospital.Entities.Person.#ctor(System.String,System.String,System.String)"/>
+            <paramref name="Work_time"/>an interval of time when Doctor works
+            <paramref name="Middlename"/>may be null
+            </summary>
+            <param name="Name"></param>
+            <param name="Surname"></param>
+            <param name="Middlename"></param>
+            <param name="Work_time"></param>
+        </member>
+        <member name="T:Hospital.Entities.Entity">
+            <summary>
+            Basic class, has primary key for each table
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Entity.Id">
+            <summary>
+            primary key
+            </summary>
+        </member>
+        <member name="T:Hospital.Entities.GP">
+            <summary>
+            inheritances from Doctor
+            represents a table in a "Hospital" database
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.GP.GpRegions">
+            <summary>
+            represents 
+            Gp can't be existed without region
+            implement many to many
+            </summary>
+        </member>
+        <member name="M:Hospital.Entities.GP.#ctor(System.String,System.String,System.String,System.TimeSpan)">
+            <summary>
+            initializes full name of a gp (Middlename can be null)
+            <paramref name="work_time">an interval of time when gp works</paramref>
+            </summary>
+            <param name="Name"></param>
+            <param name="surname"></param>
+            <param name="middlename"></param>
+            <param name="work_time"></param>
+        </member>
+        <member name="T:Hospital.Entities.Person">
+            <summary>
+            abstact class represents a person
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Person.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Person.Surname">
+            <summary>
+            Surname
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Person.Middlename">
+            <summary>
+            Middlename is virtual because some people may don't have a middlename
+            </summary>
+        </member>
+        <member name="M:Hospital.Entities.Person.#ctor(System.String,System.String,System.String)">
+            <summary>
+            initializes name, surname and middlename
+            middlename can be null
+            </summary>
+            <param name="Name"></param>
+            <param name="Surname"></param>
+            <param name="Middlename"></param>
+        </member>
+        <member name="T:Hospital.Entities.Patient">
+             
+            <summary>
+             represents a patient table in a database "Hospital"
+             <c> inherit class</c> <see cref="T:Hospital.Entities.Person"/>
+             </summary>
+        </member>
+        <member name="P:Hospital.Entities.Patient.InsuranceNumber">
+            <summary>
+            represents a unique 10 digit insurance number
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Patient.RegionId">
+            <summary>
+            A reference key(Region.Id) 
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Patient.Region">
+            <summary>
+            implements one-to-many 
+            </summary>
+        </member>
+        <member name="M:Hospital.Entities.Patient.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            <c> inherit constuctor</c> <see cref="M:Hospital.Entities.Person.#ctor(System.String,System.String,System.String)"/>
+            <paramref name="Middlename"/>may be null
+            <paramref name="insuranceNumber"/> is a 
+            </summary>
+            <param name="Name"></param>
+            <param name="Surname"></param>
+            <param name="Middlename"></param>
+            <param name="insuranceNumber"></param>
+        </member>
+        <member name="T:Hospital.Entities.Region">
+            <summary>
+            represents a database table with Regions
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Region.Name">
+            <summary>
+            the name of a region
+            </summary>
+        </member>
+        <member name="P:Hospital.Entities.Region.Patients">
+             <summary>
+             a list patients who live in this region
+            implement one to many relationship
+            a region can be existed without patients
+             </summary>
+        </member>
+        <member name="P:Hospital.Entities.Region.GPs">
+             <summary>
+             a list doctors (general practise) who heals patients in this region
+            implement many any to many relationship
+            a region can be existed without GP
+             </summary>
+        </member>
+    </members>
+</doc>
