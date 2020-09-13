@@ -21,10 +21,7 @@ namespace Hospital.Entities
         /// <summary>
         /// Middlename is virtual because some people may don't have a middlename
         /// </summary>
-        
         public virtual string Middlename { get; set; }
-
-
         /// <summary>
         /// initializes name, surname and middlename
         /// middlename can be null
@@ -38,7 +35,7 @@ namespace Hospital.Entities
             if (!string.IsNullOrEmpty(Middlename))
             this.Middlename = Middlename;
         }
-        
+        public Person() { }
 
     }
 }

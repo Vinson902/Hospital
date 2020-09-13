@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Hospital.Entities
@@ -8,9 +9,10 @@ namespace Hospital.Entities
 /// </summary>
     public abstract class Entity
     {/// <summary>
-    /// primary key
-    /// </summary>
-    
+     /// primary key
+     /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id {get; set;}
     }
 }

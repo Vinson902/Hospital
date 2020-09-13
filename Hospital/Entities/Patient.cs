@@ -12,15 +12,17 @@ namespace Hospital.Entities
     /// </summary>
     public class Patient : Person
     {
-        private int _InsuranceNumber;
+        [NotMapped]
+        private string _InsuranceNumber;
         /// <summary>
         /// represents a unique 10-digit insurance number
         /// </summary>
-        public int InsuranceNumber { 
+        
+        public string InsuranceNumber { 
             get { return _InsuranceNumber; } 
             set {
                 
-                if ((int)Math.Log10(value)+1 == 10)
+                if (value.Length == 10)
                    _InsuranceNumber = value;
                 else
                     throw new ArgumentException("Insurance number should be a ten-digit number");
@@ -43,11 +45,12 @@ namespace Hospital.Entities
         /// <param name="Surname"></param>
         /// <param name="Middlename"></param>
         /// <param name="insuranceNumber"></param>
-        public Patient(string Name, string Surname, string Middlename, int insuranceNumber) : base(Name,Surname,Middlename) {
+        public Patient(string Name, string Surname, string Middlename, string insuranceNumber) : base(Name,Surname,Middlename) {
             InsuranceNumber = insuranceNumber;
         }
         //public Patient(string Name, string Surname, int insuranceNumber) : base(Name, Surname) {
         //    InsuranceNumber = insuranceNumber;
         //}
+        public Patient() { }
     }
 }

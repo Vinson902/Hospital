@@ -26,6 +26,6 @@ namespace Hospital.Entities
         /// an list of GPs to implement many to many relationship
         /// </summary>
         public GP GP { get; set; }
-
+        public GpRegion() { }//test, probably unnecessarily
     }
 }

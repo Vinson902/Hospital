@@ -28,6 +28,11 @@ namespace Hospital.Entities
         ///a region can be existed without GP
         /// </summary>
         public virtual List<GpRegion> GPRegions { get; set; } //implement many to many and aggregation
+        public Region() { }
+        public Region(string name)
+        {
+            Name = name;
+        }
 
     }
 }

@@ -23,7 +23,7 @@ namespace Hospital.Entities
         /// <param name="surname"></param>
         /// <param name="middlename"></param>
         /// <param name="work_time">an interval of time when gp works</param>
-        public GP(string Name, string surname, string middlename, TimeSpan work_time) : base(Name,surname, middlename, work_time) 
+        public GP(string Name, string surname, string middlename) : base(Name,surname, middlename) 
         {
             GpRegions = new List<GpRegion>();
         }   
