@@ -11,14 +11,17 @@ namespace Hospital.Entities
     {/// <summary>
     /// Name
     /// </summary>
+        [Required]
         public string Name { get; set; }
         /// <summary>
         /// Surname
         /// </summary>
+        [Required]
         public string Surname { get; set; }
         /// <summary>
         /// Middlename is virtual because some people may don't have a middlename
         /// </summary>
+        
         public virtual string Middlename { get; set; }
 
 

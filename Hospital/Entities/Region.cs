@@ -12,8 +12,9 @@ namespace Hospital.Entities
     /// </summary>
     public class Region : AuditableEntity
     {/// <summary>
-    /// the name of a region
-    /// </summary>
+     /// the name of a region
+     /// </summary>
+        [Required]
         public string Name { get; set; }
         /// <summary>
         /// a list patients who live in this region

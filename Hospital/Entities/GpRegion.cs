@@ -11,6 +11,7 @@ namespace Hospital.Entities
     {/// <summary>
     /// Reference key(Region.Id)
     /// </summary>
+        [ForeignKey("Region")]
         public int RegionId { get; set; }
         /// <summary>
         /// an list of Regions to implement many to many relationship
@@ -19,6 +20,7 @@ namespace Hospital.Entities
         /// <summary>
         /// Reference key(GP.Id)
         /// </summary>
+        [ForeignKey("GP")]
         public int  GPId {get;set;}
         /// <summary>
         /// an list of GPs to implement many to many relationship
