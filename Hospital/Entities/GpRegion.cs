@@ -15,7 +15,7 @@ namespace Hospital.Entities
         /// <summary>
         /// an list of Regions to implement many to many relationship
         /// </summary>
-        public List<Region> Regions { get; set; }
+        public Region Region { get; set; }
         /// <summary>
         /// Reference key(GP.Id)
         /// </summary>
@@ -23,7 +23,7 @@ namespace Hospital.Entities
         /// <summary>
         /// an list of GPs to implement many to many relationship
         /// </summary>
-        public List<GP> GPs { get; set; }
+        public GP GP { get; set; }
 
     }
 }

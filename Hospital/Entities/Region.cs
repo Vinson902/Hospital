@@ -26,7 +26,7 @@ namespace Hospital.Entities
         ///implement many any to many relationship
         ///a region can be existed without GP
         /// </summary>
-        public virtual List<GP> GPs { get; set; } //implement many to many and aggregation
+        public virtual List<GpRegion> GPRegions { get; set; } //implement many to many and aggregation
 
     }
 }
