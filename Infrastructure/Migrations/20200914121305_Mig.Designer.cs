@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200913120850_HospitalMig")]
-    partial class HospitalMig
+    [Migration("20200914121305_Mig")]
+    partial class Mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,15 +42,28 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("Work_time")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
                     b.ToTable("GPs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barbara",
+                            Surname = "Liskov"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Florence",
+                            Surname = "Nightingale"
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Entities.GpRegion", b =>
@@ -66,6 +79,18 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RegionId");
 
                     b.ToTable("GPRegions");
+
+                    b.HasData(
+                        new
+                        {
+                            GPId = 1,
+                            RegionId = 1
+                        },
+                        new
+                        {
+                            GPId = 2,
+                            RegionId = 2
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Entities.Patient", b =>
@@ -95,7 +120,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -103,6 +128,36 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RegionId");
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InsuranceNumber = "0000000001",
+                            Middlename = "Sergeevich",
+                            Name = "Vitaliy",
+                            RegionId = 1,
+                            Surname = "Borodkov"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InsuranceNumber = "0000000002",
+                            Name = "Michael",
+                            RegionId = 2,
+                            Surname = "Smith"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InsuranceNumber = "0000000003",
+                            Name = "Lisa",
+                            RegionId = 1,
+                            Surname = "White"
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Entities.Region", b =>
@@ -119,12 +174,26 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Regions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Losinoovstrovki"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Babushkinski"
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Entities.GpRegion", b =>

@@ -1,33 +1,48 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.IO;
 using Infrastructure.DataAccess;
 using Hospital.Entities;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Design;
+
 
 namespace ConsoleDbConnection
 {
+    /* public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+     {
+         public AppDbContext CreateDbContext(string[] args)
+         {
+             /*var builder = new ConfigurationBuilder();
+             builder.SetBasePath(Directory.GetCurrentDirectory());
+             builder.AddJsonFile("appsettings.json");
+             var config = builder.Build();
+             string connectionString = config.GetConnectionString("DefaultConnection");
+
+             var connection =
+     System.Configuration.ConfigurationManager.
+     ConnectionStrings["DefaultConnection"].ConnectionString;
+
+             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+             var options = optionsBuilder
+                 .UseSqlServer("Server=DESKTOP-Q37JUD8;Database=ForStudying;Trusted_Connection=True", m=>m.MigrationsAssembly("Infrastructure"))
+                 .Options;
+
+             return new AppDbContext(optionsBuilder.Options);
+         }
+     }   */
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile("appsettings.json");
-            var config = builder.Build();
-            string connectionString = config.GetConnectionString("DefaultConnection");
-
+            var connection =
+    System.Configuration.ConfigurationManager.
+    ConnectionStrings["DefaultConnection"].ConnectionString;
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            var options = optionsBuilder
-                .UseSqlServer(connectionString)
-                .Options;
-           
+            optionsBuilder.UseSqlServer(connection, b => b.MigrationsAssembly("Infrastructure"));
+            // optionsBuilder.UseMySql("server=localhost;Port=3306;Database=testdb;Uid=root;Pwd=0000;");
             return new AppDbContext(optionsBuilder.Options);
         }
-    }   
+    }
     class Program
     {
        public static void Main(string[] args)
@@ -35,10 +50,10 @@ namespace ConsoleDbConnection
             var DBFactory = new AppDbContextFactory();
             using (AppDbContext dBContext = DBFactory.CreateDbContext(args))
             {
-               
-                foreach(Patient gp in dBContext.Patients)
+                Region region = dBContext.Regions.Where(a => a.Id == 1).Single();
+                foreach (Patient patients in dBContext.Patients.Where(a => a.RegionId == 1))
                 {
-                    Console.WriteLine(gp.Name);
+                    Console.WriteLine($"{patients.Name} {patients.Surname} lives in Region {region.Name}");
                 }
             }
 

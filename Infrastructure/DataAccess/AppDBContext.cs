@@ -16,13 +16,13 @@ namespace Infrastructure.DataAccess
 
         public AppDbContext(DbContextOptions<AppDbContext> options) :base (options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
+            
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
-        }
+        }*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
