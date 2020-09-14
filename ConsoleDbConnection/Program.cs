@@ -10,19 +10,9 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace ConsoleDbConnection
 {
-    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDBContext>
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-        public AppDBContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<AppDBContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BooksStore;Trusted_Connection=True;", b => b.MigrationsAssembly("Infrastructure"));
-            // optionsBuilder.UseMySql("server=localhost;Port=3306;Database=testdb;Uid=root;Pwd=0000;");
-            return new AppDBContext(optionsBuilder.Options);
-        }
-    }   
-    class Program
-    {
-       public static void Main(string[] args)
+        public AppDbContext CreateDbContext(string[] args)
         {
             var builder = new ConfigurationBuilder();
             builder.SetBasePath(Directory.GetCurrentDirectory());
@@ -30,15 +20,22 @@ namespace ConsoleDbConnection
             var config = builder.Build();
             string connectionString = config.GetConnectionString("DefaultConnection");
 
-            var optionsBuilder = new DbContextOptionsBuilder<AppDBContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             var options = optionsBuilder
                 .UseSqlServer(connectionString)
                 .Options;
-            using(AppDBContext dBContext = new AppDBContext(options))
+           
+            return new AppDbContext(optionsBuilder.Options);
+        }
+    }   
+    class Program
+    {
+       public static void Main(string[] args)
+        {
+            var DBFactory = new AppDbContextFactory();
+            using (AppDbContext dBContext = DBFactory.CreateDbContext(args))
             {
-                /*dBContext.GPs.AddRange(
-                    new GP("Tim", "Golubkin", "Yirevich", TimeSpan.Zero), new GP("John", "Brown",null,TimeSpan.Zero));
-                dBContext.SaveChanges();*/
+               
                 foreach(Patient gp in dBContext.Patients)
                 {
                     Console.WriteLine(gp.Name);

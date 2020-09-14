@@ -7,14 +7,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.DataAccess
 {
-   public class AppDBContext : DbContext
+   public class AppDbContext : DbContext
     {
         public DbSet<GP> GPs { get; set; }
         public DbSet<GpRegion> GPRegions { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Region> Regions { get; set; }
 
-        public AppDBContext(DbContextOptions<AppDBContext> options) :base (options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) :base (options)
         {
             Database.EnsureDeleted();
             Database.EnsureCreated();

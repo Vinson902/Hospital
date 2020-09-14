@@ -16,6 +16,6 @@ namespace Hospital.Entities
         /// <summary>
         /// DataTime when the line was updated
         /// </summary>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }
