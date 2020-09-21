@@ -1,47 +1,67 @@
-﻿using System;
+﻿using Hospital.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Infrastructure.DataAccess
 {
-    public abstract class Repository<TEntity> where TEntity : class
+    public class Repository<TEntity>  where TEntity : AuditableEntity
     {
-        protected readonly AppDbContext DbContext;
-
+        internal readonly AppDbContext DbContext;
+        internal DbSet<TEntity> dbSet;
         public Repository(AppDbContext dbContext)
         {
             DbContext = dbContext;
+            dbSet = dbContext.Set<TEntity>();
+        }
+        public virtual TEntity Get(TEntity entity)
+        {
+            return dbSet.Find(entity);
+        }
+        public virtual void AddList(List<TEntity> entitiesList)
+        {
+            dbSet.AddRange(entitiesList);
         }
 
-        public virtual TEntity Get(int id)
+        public virtual IEnumerable<TEntity> GetWithRawSql(string query,
+        params object[] parameters)
         {
-            return DbContext.Find<TEntity>(id);
+            if(query.ToLower().StartsWith("select"))
+                return dbSet.FromSqlRaw(query, parameters).ToList();
+            throw new ArgumentException("Select only");
+        }
+
+        
+        public virtual void Remove(TEntity entityToDelete)
+        {
+            dbSet.Remove(entityToDelete);
+        }
+
+        public virtual void RemoveById(object id)
+        {
+            dbSet.Remove(dbSet.Find(id));
+
+        }
+        public virtual TEntity GetByID(object id)
+        {
+            return dbSet.Find(id);
         }
 
         public virtual void Add(TEntity entity)
         {
-            DbContext.Add(entity);
+            dbSet.Add(entity);
         }
 
-        public virtual void AddList(List<TEntity> entityList)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            DbContext.AddRange(entityList);
+            dbSet.Update(entityToUpdate);
         }
-
-        public virtual void Update(TEntity entity)
+        public void SaveChanges()
         {
-            DbContext.Update(entity);
+            DbContext.SaveChanges();
         }
-
-        public virtual void Remove(TEntity entity)
-        {
-            DbContext.Remove(entity);
-        }
-
-        public int SaveChanges()
-        {
-            return DbContext.SaveChanges();
-        }
-
     }
 }

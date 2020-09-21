@@ -12,26 +12,25 @@ namespace Infrastructure.DataAccess
 
         }
 
-
         public override void Add(TEntity entity)
         {
             entity.CreatedAt = DateTime.Now;
             base.Add(entity);
             SaveChanges();
         }
-
-        public override void AddList(List<TEntity> entityList)
+        public override void Update(TEntity entityToUpdate)
         {
-            entityList.ForEach(e => e.CreatedAt = DateTime.Now);
-            base.AddList(entityList);
+            entityToUpdate.UpdatedAt = DateTime.Now;
+            base.Update(entityToUpdate);
+            SaveChanges();
+        }
+        public override void AddList(List<TEntity> entitiesList)
+        {
+            entitiesList.ForEach(e => e.CreatedAt = DateTime.Now);
+            base.AddList(entitiesList);
             SaveChanges();
         }
 
-        public override void Update(TEntity entity)
-        {
-            entity.UpdatedAt = DateTime.Now;
-            base.Update(entity);
-            SaveChanges();
-        }
+
     }
 }
