@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Infrastructure.DataAccess
 {
-    class RegionRepository : AuditableRepository<Region>, IRegionRepository
+    public class RegionRepository : AuditableRepository<Region>, IRegionRepository
     {
 
 

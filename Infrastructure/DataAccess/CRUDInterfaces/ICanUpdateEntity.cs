@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Infrastructure.CRUDInterfaces
 {
-    interface ICanUpdateEntity<TEntity> where TEntity : Entity
+    public interface ICanUpdateEntity<TEntity> where TEntity : Entity
     {
         void Update(TEntity entity);
     }

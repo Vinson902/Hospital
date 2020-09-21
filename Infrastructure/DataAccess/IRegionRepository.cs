@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Infrastructure.DataAccess
 {
-    interface IRegionRepository : ICanAddEntity<Region>, ICanUpdateEntity<Region>, ICanGetEntity<Region>
+    public interface IRegionRepository : ICanAddEntity<Region>, ICanUpdateEntity<Region>, ICanGetEntity<Region>
     {
         public Region GetRegionsByPatientsSurname(string surname);
     }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Infrastructure.DataAccess
 {
-    interface IPatientRepository : ICanAddEntity<Patient>, ICanUpdateEntity<Patient>, ICanGetEntity<Patient>
+    public interface IPatientRepository : ICanAddEntity<Patient>, ICanUpdateEntity<Patient>, ICanGetEntity<Patient>
     {
         public IReadOnlyList<Patient> GetPatientsByGpSurname(string surname);
         public IReadOnlyList<Patient> GetPatientsByRegionName(string name);

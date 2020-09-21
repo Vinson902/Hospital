@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Infrastructure.CRUDInterfaces
 {
-    interface ICanGetEntity<TEntity> where TEntity : Entity
+    public interface ICanGetEntity<TEntity> where TEntity : Entity
     {
         TEntity Get(TEntity entity);
     }
