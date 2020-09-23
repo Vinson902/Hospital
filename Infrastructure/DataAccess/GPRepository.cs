@@ -16,20 +16,16 @@ namespace Infrastructure.DataAccess
         }
         public IReadOnlyList<GP> GetGPsByPatient(string surname)
         {
-            var region = (from s in DbContext.Patients where s.Surname == surname select s.Region).FirstOrDefault();
-            if (region == null)
-                throw new Exception("region is null");
-            var gps = DbContext.GPs.Where(e => e.GpRegions.Single().Region.Equals(region)).ToList();
-            if (gps == null)
-                throw new Exception("gps is null");
-
-            return gps;
+            var region = from s in DbContext.Patients where s.Surname == surname select s.Region;
+            return (from gp in DbContext.GPs
+                   where gp.GpRegions.Any(r => r.Region == region.First())
+                   select gp).ToList();
         }
 
 
         public IReadOnlyList<GP> GetGpsByRegion(string name)
         {
-            throw new NotImplementedException();
+            return DbContext.GPs.Where(e => e.GpRegions.Single().Region.Name.ToLower().Contains(name.ToLower())).ToList();
         }
     }
 }

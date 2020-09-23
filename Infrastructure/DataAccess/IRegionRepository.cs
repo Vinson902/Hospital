@@ -10,5 +10,6 @@ namespace Infrastructure.DataAccess
     public interface IRegionRepository : ICanAddEntity<Region>, ICanUpdateEntity<Region>, ICanGetEntity<Region>
     {
         public Region GetRegionsByPatientsSurname(string surname);
+        public IReadOnlyList<Region> GetRegionsByGpSurnane(string surname);
     }
 }

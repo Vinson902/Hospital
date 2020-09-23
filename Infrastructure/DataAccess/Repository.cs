@@ -29,8 +29,12 @@ namespace Infrastructure.DataAccess
         public virtual IEnumerable<TEntity> GetWithRawSql(string query,
         params object[] parameters)
         {
-            if(query.ToLower().StartsWith("select"))
-                return dbSet.FromSqlRaw(query, parameters).ToList();
+            if (query.ToLower().StartsWith("select"))
+            {
+                var set =  dbSet.FromSqlRaw(query, parameters).ToList();
+
+                return set;
+            }
             throw new ArgumentException("Select only");
         }
 

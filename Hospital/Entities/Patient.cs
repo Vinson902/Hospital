@@ -45,6 +45,7 @@ namespace Hospital.Entities
         /// <param name="Surname"></param>
         /// <param name="Middlename"></param>
         /// <param name="insuranceNumber"></param>
+        
         public Patient(string Name, string Surname, string Middlename, string insuranceNumber) : base(Name,Surname,Middlename) {
             InsuranceNumber = insuranceNumber;
         }
