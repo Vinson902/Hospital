@@ -7,22 +7,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.DataAccess
 {
-   public class AppDBContext : DbContext
+   public class AppDbContext : DbContext
     {
         public DbSet<GP> GPs { get; set; }
         public DbSet<GpRegion> GPRegions { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Region> Regions { get; set; }
 
-        public AppDBContext(DbContextOptions<AppDBContext> options) :base (options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) :base (options)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
+            
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
-        }
+        }*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -36,16 +37,28 @@ namespace Infrastructure.DataAccess
             {
                     new Region ("Losinoovstrovki"){Id = 1},
                     new Region ("Babushkinski"){Id = 2},
+                    new Region("Norfolk"){Id = 3},
+                    new Region("Sussex"){Id = 4}
+
             };
 
             var gps = new []{
                 new GP("Barbara","Liskov",""){Id = 1},
                 new GP("Florence","Nightingale",""){Id = 2},
+                new GP("Sigmund","Freud",""){Id = 3},
+                new GP("Joseph","Lister",""){Id = 4}
             };
             var gpRegion = new[]
             {
                 new GpRegion(){GPId = 1, RegionId = 1},
-                new GpRegion(){GPId = 2, RegionId = 2}
+                new GpRegion(){GPId = 2, RegionId = 2},
+                new GpRegion(){GPId = 3, RegionId = 3},
+                new GpRegion(){GPId = 4, RegionId = 3},
+                new GpRegion(){GPId = 3, RegionId = 2},
+                new GpRegion(){GPId = 1, RegionId = 4},
+
+
+
             };
 
 

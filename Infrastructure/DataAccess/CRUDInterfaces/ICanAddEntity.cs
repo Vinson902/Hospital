@@ -5,7 +5,7 @@ using Hospital.Entities;
 
 namespace Infrastructure.CRUDInterfaces
 {
-    interface ICanAddEntity<TEntity> where TEntity : Entity
+    public interface ICanAddEntity<TEntity> where TEntity : Entity
     {
         void Add(TEntity entity);
     }
