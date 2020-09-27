@@ -12,10 +12,13 @@ namespace Infrastructure.DataAccess
         public IReadOnlyList<Patient> GetPatientsByGpSurname(string surname)
         {
             var gp = DbContext.GPs.Where(g => g.Surname.ToLower().Contains(surname.ToLower())).FirstOrDefault();
-            var rg = from r in DbContext.Regions
-                      where r.GPRegions.Any(g => g.GP.Equals(gp))
-                      select r;
-            return DbContext.Patients.Where(p => p.Equals(rg)).ToList();
+            var patients = 
+                from r in DbContext.Regions
+                from pa in dbSet
+                     where r.GPRegions.Any(g => g.GP.Equals(gp))
+                     where pa.Region.Equals(r)
+                        select pa;
+            return patients.ToList();
         }
 
         public IReadOnlyList<Patient> GetPatientsByRegionName(string name)

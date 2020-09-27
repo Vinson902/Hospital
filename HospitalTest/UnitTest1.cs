@@ -102,7 +102,7 @@ namespace HospitalTest
         [TestMethod]
         public void GetPatientsByGpSurname()
         {
-            string surname = "";
+            string surname = "Liskov";
             Repository<Patient> repository = new Repository<Patient>(DbContext);
             IPatientRepository patientRepository = new PatientRepository(DbContext);
             var expected = repository.GetWithRawSql("select Patients.* from dbo.Patients as patients, dbo.GPs as gp, dbo.GPRegions as gprg, dbo.Regions as rg " +

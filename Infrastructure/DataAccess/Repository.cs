@@ -12,6 +12,7 @@ namespace Infrastructure.DataAccess
     {
         internal readonly AppDbContext DbContext;
         internal DbSet<TEntity> dbSet;
+
         public Repository(AppDbContext dbContext)
         {
             DbContext = dbContext;
