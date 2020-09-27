@@ -27,5 +27,6 @@ namespace Hospital.Entities
         /// </summary>
         public GP GP { get; set; }
         public GpRegion() { }//test, probably unnecessarily
+        
     }
 }

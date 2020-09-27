@@ -10,6 +10,5 @@ namespace Infrastructure.DataAccess
     {
         public IReadOnlyList<Patient> GetPatientsByGpSurname(string surname);
         public IReadOnlyList<Patient> GetPatientsByRegionName(string name);
-        
     }
 }
