@@ -1,7 +1,9 @@
 ﻿using Hospital.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.DataAccess
 {
@@ -9,7 +11,7 @@ namespace Infrastructure.DataAccess
     {
         public PatientRepository(AppDbContext dbContext) : base(dbContext) { }
 
-        public IReadOnlyList<Patient> GetPatientsByGpSurname(string surname)
+        public async Task<IReadOnlyList<Patient>> GetPatientsByGpSurnameAsync(string surname)
         {
             var gp = DbContext.GPs.Where(g => g.Surname.ToLower().Contains(surname.ToLower())).FirstOrDefault();
             var patients = 
@@ -18,16 +20,12 @@ namespace Infrastructure.DataAccess
                      where r.GPRegions.Any(g => g.GP.Equals(gp))
                      where pa.Region.Equals(r)
                         select pa;
-            return patients.ToList();
+            return await patients.ToListAsync();
         }
 
-        public IReadOnlyList<Patient> GetPatientsByRegionName(string name)
+        public async Task<IReadOnlyList<Patient>> GetPatientsByRegionNameAsync(string name)
         {
-
-            return DbContext.Patients.Where(e => e.Region.Name.ToLower().Contains(name.ToLower())).ToList();
-
+            return await DbContext.Patients.Where(e => e.Region.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
-
-        
     }
 }

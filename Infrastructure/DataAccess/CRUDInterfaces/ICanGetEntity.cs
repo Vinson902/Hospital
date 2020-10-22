@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.CRUDInterfaces
 {
     public interface ICanGetEntity<TEntity> where TEntity : Entity
     {
-        TEntity Get(TEntity entity);
+        Task<TEntity> GetAsync(TEntity entity);
     }
 }

@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.DataAccess
 {
+   
     public class Repository<TEntity>  where TEntity : AuditableEntity
     {
+        
         internal readonly AppDbContext DbContext;
         internal DbSet<TEntity> dbSet;
 
@@ -18,15 +21,22 @@ namespace Infrastructure.DataAccess
             DbContext = dbContext;
             dbSet = dbContext.Set<TEntity>();
         }
-        public virtual TEntity Get(TEntity entity)
+        public async virtual Task<TEntity> GetAsync(TEntity entity)
         {
-            return dbSet.Find(entity);
+            return await dbSet.FindAsync(entity);
+        }
+        public async virtual Task<TEntity> GetByIDAsync(object id)
+        {
+            return await dbSet.FindAsync(id);
+        }
+        public async virtual Task<IReadOnlyList<TEntity>> GetAllAsync()
+        {
+            return await dbSet.ToListAsync();
         }
         public virtual void AddList(List<TEntity> entitiesList)
         {
             dbSet.AddRange(entitiesList);
         }
-
         public virtual IEnumerable<TEntity> GetWithRawSql(string query,
         params object[] parameters)
         {
@@ -38,8 +48,6 @@ namespace Infrastructure.DataAccess
             }
             throw new ArgumentException("Select only");
         }
-
-        
         public virtual void Remove(TEntity entityToDelete)
         {
             dbSet.Remove(entityToDelete);
@@ -50,23 +58,17 @@ namespace Infrastructure.DataAccess
             dbSet.Remove(dbSet.Find(id));
 
         }
-        public virtual TEntity GetByID(object id)
-        {
-            return dbSet.Find(id);
-        }
-
         public virtual void Add(TEntity entity)
         {
             dbSet.Add(entity);
         }
-
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Update(entityToUpdate);
         }
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            DbContext.SaveChanges();
+           await DbContext.SaveChangesAsync();
         }
     }
 }

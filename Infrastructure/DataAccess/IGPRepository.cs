@@ -3,13 +3,15 @@ using Infrastructure.CRUDInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.DataAccess
 {
     public interface IGPRepository : ICanGetEntity<GP>,ICanUpdateEntity<GP>,ICanAddEntity<GP>
     {
-        public IReadOnlyList<GP> GetGpsByRegion(string name);
-        public IReadOnlyList<GP> GetGPsByPatient(string name);
+        public Task<IReadOnlyList<GP>> GetGpsByRegionAsync(string name);
+        public Task<IReadOnlyList<GP>> GetGPsByPatientSurnameAsync(string surname);
+        public Task<IReadOnlyList<GP>> GetAllAsync();
 
     }
 }

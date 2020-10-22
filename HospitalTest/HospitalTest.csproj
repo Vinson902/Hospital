@@ -17,7 +17,6 @@
     <ProjectReference Include="..\ConsoleDbConnection\ConsoleDbConnection.csproj" />
     <ProjectReference Include="..\Hospital\Hospital.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\WebHospital\WebHospital.csproj" />
   </ItemGroup>
 
 </Project>

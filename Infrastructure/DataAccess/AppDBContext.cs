@@ -16,7 +16,7 @@ namespace Infrastructure.DataAccess
 
         public AppDbContext(DbContextOptions<AppDbContext> options) :base (options)
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
             
         }
@@ -31,12 +31,31 @@ namespace Infrastructure.DataAccess
                {
                  new Patient("Vitaliy","Borodkov","Sergeevich","0000000001"){Id = 1,RegionId = 1},
                  new Patient("Michael","Smith","","0000000002") {Id =2, RegionId=2},
-                 new Patient("Lisa","White","","0000000003"){Id=3,RegionId = 1},
+                 new Patient("Marek","Stubbs","","0000000003"){Id=3,RegionId = 3},
+                 new Patient("Caolan","Dodson","","0000000004"){Id=4,RegionId = 4},
+                 new Patient("Mai","Bateman","","0000000005"){Id=5,RegionId = 2},
+                 new Patient("Kylan","Churchill","","0000000006"){Id=6,RegionId = 3},
+                 new Patient("John-Paul","Bernard","","0000000007"){Id=7,RegionId = 4},
+                 new Patient("Zavier","French","","0000000008"){Id=8,RegionId = 1},
+                 new Patient("Melanie","Simmons","","0000000009"){Id=9,RegionId = 2},
+                 new Patient("Romana","Anthony","","0000000010"){Id=10,RegionId = 3},
+                 new Patient("Ezekiel","Neale","","0000000011"){Id=11,RegionId = 4},
+                 new Patient("Rhiannon","Carlson","","0000000012"){Id=12,RegionId = 2},
+                 new Patient("Carlton","Hyde","","0000000013"){Id=13,RegionId = 3},
+                 new Patient("Hashir","Rooney","","0000000014"){Id=14,RegionId = 1},
+                 new Patient("Kailum","Phelps","","0000000015"){Id=15,RegionId = 4},
+                 new Patient("Alara","Fountain","","0000000016"){Id=16,RegionId = 4},
+                 new Patient("Jorge","Waller","","0000000017"){Id=17,RegionId = 3},
+                 new Patient("Herman","Oconnor","","0000000018"){Id=18,RegionId = 3},
+                 new Patient("Elisa","Rodgers","","0000000019"){Id=19,RegionId = 2},
+                 new Patient("Ifrah","Herbert","","0000000020"){Id=20,RegionId = 1},
+                 new Patient("Laila","Tyler","","0000000021"){Id=21,RegionId = 1},
+
                 };
             var regions = new[]
             {
-                    new Region ("Losinoovstrovki"){Id = 1},
-                    new Region ("Babushkinski"){Id = 2},
+                    new Region ("Surrey"){Id = 1},
+                    new Region ("Wiltshire"){Id = 2},
                     new Region("Norfolk"){Id = 3},
                     new Region("Sussex"){Id = 4}
 
@@ -56,9 +75,6 @@ namespace Infrastructure.DataAccess
                 new GpRegion(){GPId = 4, RegionId = 3},
                 new GpRegion(){GPId = 3, RegionId = 2},
                 new GpRegion(){GPId = 1, RegionId = 4},
-
-
-
             };
 
 

@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.DataAccess
 {
     public interface IRegionRepository : ICanAddEntity<Region>, ICanUpdateEntity<Region>, ICanGetEntity<Region>
     {
-        public Region GetRegionsByPatientsSurname(string surname);
-        public IReadOnlyList<Region> GetRegionsByGpSurnane(string surname);
+        public Task<Region> GetRegionsByPatientsSurnameAsync(string surname);
+        public Task<IReadOnlyList<Region>> GetRegionsByGpSurnaneAsync(string surname);
+        public Task<IReadOnlyList<Region>> GetAllAsync();
     }
 }

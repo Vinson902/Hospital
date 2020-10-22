@@ -27,7 +27,7 @@ namespace ConsoleDbConnection
                  .UseSqlServer("Server=DESKTOP-Q37JUD8;Database=ForStudying;Trusted_Connection=True", m=>m.MigrationsAssembly("Infrastructure"))
                  .Options;
 
-             return new AppDbContext(optionsBuilder.Options);
+             return new AppDbContext(optionsBuilder.Options);   
          }
      }   */
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>

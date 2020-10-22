@@ -30,13 +30,13 @@ namespace HospitalTest
                                           " dbo.GPs AS doctors, dbo.Regions AS regions, dbo.GPRegions AS gpregions, dbo.Patients AS patients WHERE " +
                                           $" doctors.Id = gpregions.GPId AND regions.Id = gpregions.RegionId AND gpregions.RegionId = patients.RegionId AND patients.Surname = '{surname}'; ").ToList();
 
-            IReadOnlyList<GP> expected = gPRepository.GetGPsByPatient(surname);
+            IReadOnlyList<GP> expected = gPRepository.GetGPsByPatientSurname(surname);
             Assert.AreEqual(expected.Count, actual.Count, "Wrond number of rows ");
         }
         [TestMethod]
         public void GetGPsByRegion()
         {
-            string region = "Babushkinski";
+            string region = "Surrey";
             Repository <GP> gp = new Repository<GP>(DbContext);
             IGPRepository gPRepository = new GPRepository(DbContext);
             IReadOnlyList<GP> expected = gp.GetWithRawSql(
@@ -73,7 +73,7 @@ namespace HospitalTest
         [TestMethod]
         public void GetRegionByPationsSurname()
         {
-            string surname = "White";
+            string surname = "Stubbs";
             Repository<Region> rg = new Repository<Region>(DbContext);
             IRegionRepository regionRepository = new RegionRepository(DbContext);
             var expected = rg.GetWithRawSql("" +
