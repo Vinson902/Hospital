@@ -11,7 +11,6 @@ namespace Infrastructure.DataAccess
     public interface IRegionRepository : ICanAddEntity<Region>, ICanUpdateEntity<Region>, ICanGetEntity<Region>
     {
         public Task<Region> GetRegionsByPatientsSurnameAsync(string surname);
-        public Task<IReadOnlyList<Region>> GetRegionsByGpSurnaneAsync(string surname);
-        public Task<IReadOnlyList<Region>> GetAllAsync();
+        public Task<IReadOnlyList<Region>> GetRegionsByGpSurnameAsync(string surname);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Hospital.Entities
 {/// 
@@ -35,6 +36,7 @@ namespace Hospital.Entities
         /// <summary>
         /// implements one-to-many with <see cref="Hospital.Entities.Region"/>
         /// </summary>
+        [JsonIgnore]
         public Region Region { get; set; }
         /// <summary>
         /// <c> inherit constuctor</c> <see cref="Hospital.Entities.Person.Person(string, string, string)"/>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Hospital.Entities
 {
@@ -21,12 +22,14 @@ namespace Hospital.Entities
         /// implement one to many relationship
         /// a region can be existed without patients
         /// </summary>
+        [JsonIgnore]
         public virtual List<Patient> Patients { get; set; }
         /// <summary>
         /// a list doctors (general practise) who heal patients in this region
         ///implement many any to many relationship
         ///a region can be existed without GP
         /// </summary>
+        [JsonIgnore]
         public virtual List<GpRegion> GPRegions { get; set; } //implement many to many and aggregation
         public Region() { }
         public Region(string name)

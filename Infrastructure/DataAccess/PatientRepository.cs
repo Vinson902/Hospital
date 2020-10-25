@@ -25,7 +25,8 @@ namespace Infrastructure.DataAccess
 
         public async Task<IReadOnlyList<Patient>> GetPatientsByRegionNameAsync(string name)
         {
-            return await DbContext.Patients.Where(e => e.Region.Name.ToLower().Contains(name.ToLower())).ToListAsync();
+            return await DbContext.Patients.Where(e => e.Region.Name.ToLower().Contains(name.ToLower())).Include(e =>e.Region.Name).ToListAsync();
         }
-    }
+
+    }   
 }

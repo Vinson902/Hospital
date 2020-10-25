@@ -25,7 +25,7 @@ namespace Infrastructure.DataAccess
         {
             return await dbSet.FindAsync(entity);
         }
-        public async virtual Task<TEntity> GetByIDAsync(object id)
+        public async virtual Task<TEntity> GetByIdAsync(int id)
         {
             return await dbSet.FindAsync(id);
         }
@@ -42,7 +42,7 @@ namespace Infrastructure.DataAccess
         {
             if (query.ToLower().StartsWith("select"))
             {
-                var set =  dbSet.FromSqlRaw(query, parameters).ToList();
+                var set =  dbSet.FromSqlRaw(query, parameters);
 
                 return set;
             }
@@ -66,9 +66,9 @@ namespace Infrastructure.DataAccess
         {
             dbSet.Update(entityToUpdate);
         }
-        public async Task SaveChangesAsync()
+        public virtual void SaveChanges()
         {
-           await DbContext.SaveChangesAsync();
+           DbContext.SaveChanges();
         }
     }
 }

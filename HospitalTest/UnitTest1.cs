@@ -21,7 +21,7 @@ namespace HospitalTest
              DbContext = new AppDbContext(options.Options);
         }
         [TestMethod]
-        public void GetGpsByPatient()
+        public async void GetGpsByPatient()
         {
             string surname = "Smith";
             Repository<GP> gp = new Repository<GP>(DbContext);
@@ -30,11 +30,11 @@ namespace HospitalTest
                                           " dbo.GPs AS doctors, dbo.Regions AS regions, dbo.GPRegions AS gpregions, dbo.Patients AS patients WHERE " +
                                           $" doctors.Id = gpregions.GPId AND regions.Id = gpregions.RegionId AND gpregions.RegionId = patients.RegionId AND patients.Surname = '{surname}'; ").ToList();
 
-            IReadOnlyList<GP> expected = gPRepository.GetGPsByPatientSurname(surname);
+            IReadOnlyList<GP> expected = await gPRepository.GetGPsByPatientSurnameAsync(surname);
             Assert.AreEqual(expected.Count, actual.Count, "Wrond number of rows ");
         }
         [TestMethod]
-        public void GetGPsByRegion()
+        public async void GetGPsByRegion()
         {
             string region = "Surrey";
             Repository <GP> gp = new Repository<GP>(DbContext);
@@ -48,11 +48,11 @@ namespace HospitalTest
                             "FROM [dbo].GPRegions AS gprg "+
                             $"WHERE (gp.[Id] = gprg.GPId) AND(gprg.RegionId = (Select dbo.Regions.Id from dbo.Regions where dbo.Regions.Name = '{region}')));"
                         ).ToList();
-            IReadOnlyList<GP> actual = gPRepository.GetGpsByRegion(region).ToList();
+            IReadOnlyList<GP> actual = await gPRepository.GetGpsByRegionAsync(region);
             Assert.AreEqual(expected.Count, actual.Count, "The number of rows is wrong");
         }
         [TestMethod]
-        public void GetRegionByGpsSurname()
+        public async void GetRegionByGpsSurname()
         {
             string surname = "Liskov";
             Repository<Region> rg = new Repository<Region>(DbContext);
@@ -67,11 +67,11 @@ namespace HospitalTest
                     "FROM dbo.GPRegions as gprg " +
                     "WHERE (rg.Id = gprg.RegionId) AND (gprg.GPId = " +
                     $"(SELECT dbo.GPs.Id from dbo.GPs WHERE dbo.GPs.Surname  = '{surname}')))").ToList();
-            IReadOnlyList<Region> actual = regionRepository.GetRegionsByGpSurnane(surname);
+            IReadOnlyList<Region> actual = await regionRepository.GetRegionsByGpSurnameAsync(surname);
             Assert.AreEqual(expected.Count, actual.Count, "Wrond number of rows ");
         }
         [TestMethod]
-        public void GetRegionByPationsSurname()
+        public async void GetRegionByPationsSurname()
         {
             string surname = "Stubbs";
             Repository<Region> rg = new Repository<Region>(DbContext);
@@ -85,29 +85,29 @@ namespace HospitalTest
                         "1 " +
                         "FROM dbo.Patients as patients " +
                         $"WHERE (rg.Id = patients.RegionId) AND (patients.Surname = '{surname}'));").ToList().FirstOrDefault();
-            Region actual = regionRepository.GetRegionsByPatientsSurname(surname);
+            Region actual = await regionRepository.GetRegionsByPatientsSurnameAsync(surname);
             Assert.AreEqual(expected,actual , "Wrond number of rows ");
         }
         [TestMethod]
-        public void GetPatientByRegionName()
+        public async void GetPatientByRegionName()
         {
             string name = "Norfolk";
             Repository<Patient> repository = new Repository<Patient>(DbContext);
             IPatientRepository patientRepository = new PatientRepository(DbContext);
             var expected = repository.GetWithRawSql("Select patients.* from dbo.Patients as patients, dbo.Regions " +
                                      $" where patients.RegionId = dbo.Regions.Id and dbo.Regions.Name = '{name}'; ").ToList();
-            var actual = patientRepository.GetPatientsByRegionName(name);
+            var actual = await patientRepository.GetPatientsByRegionNameAsync(name);
             Assert.AreEqual(expected.Count, actual.Count, "Wrond number of rows ");
         }
         [TestMethod]
-        public void GetPatientsByGpSurname()
+        public async void GetPatientsByGpSurname()
         {
             string surname = "Liskov";
             Repository<Patient> repository = new Repository<Patient>(DbContext);
             IPatientRepository patientRepository = new PatientRepository(DbContext);
             var expected = repository.GetWithRawSql("select Patients.* from dbo.Patients as patients, dbo.GPs as gp, dbo.GPRegions as gprg, dbo.Regions as rg " +
                                                     $" where gp.Surname = '{surname}' and gp.Id = gprg.GPId and rg.Id = gprg.RegionId and Patients.RegionId = rg.Id; ").ToList();
-            var actual = patientRepository.GetPatientsByGpSurname(surname);
+            var actual = await patientRepository.GetPatientsByGpSurnameAsync(surname);
             Assert.AreEqual(expected.Count, actual.Count, "Wrond number of rows ");
 
         }

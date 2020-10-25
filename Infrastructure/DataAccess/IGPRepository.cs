@@ -11,7 +11,6 @@ namespace Infrastructure.DataAccess
     {
         public Task<IReadOnlyList<GP>> GetGpsByRegionAsync(string name);
         public Task<IReadOnlyList<GP>> GetGPsByPatientSurnameAsync(string surname);
-        public Task<IReadOnlyList<GP>> GetAllAsync();
 
     }
 }

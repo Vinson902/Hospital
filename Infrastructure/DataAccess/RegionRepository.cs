@@ -26,7 +26,7 @@ namespace Infrastructure.DataAccess
         }
 
 
-        public async Task<IReadOnlyList<Region>> GetRegionsByGpSurnaneAsync(string surname)
+        public async Task<IReadOnlyList<Region>> GetRegionsByGpSurnameAsync(string surname)
         {
             var region = from s in DbContext.Patients where s.Surname == surname select s.Region;
 

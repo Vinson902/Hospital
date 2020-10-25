@@ -11,5 +11,8 @@ namespace Infrastructure.CRUDInterfaces
     public interface ICanGetEntity<TEntity> where TEntity : Entity
     {
         Task<TEntity> GetAsync(TEntity entity);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<IReadOnlyList<TEntity>> GetAllAsync();
+
     }
 }

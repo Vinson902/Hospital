@@ -4,7 +4,8 @@ using Infrastructure.DataAccess;
 using Hospital.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Design;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConsoleDbConnection
 {
@@ -45,19 +46,38 @@ namespace ConsoleDbConnection
     }
     class Program
     {
-       public static void Main(string[] args)
+       public static async Task Main(string[] args)
         {
             var DBFactory = new AppDbContextFactory();
             using (AppDbContext dBContext = DBFactory.CreateDbContext(args))
             {
-                Region region = dBContext.Regions.Where(a => a.Id == 1).Single();
-                foreach (Patient patients in dBContext.Patients.Where(a => a.RegionId == 1))
+                IPatientRepository patient = new PatientRepository(dBContext);
+                try
                 {
-                    Console.WriteLine($"{patients.Name} {patients.Surname} lives in Region {region.Name}");
+                    patient.Add(new Patient
+                    {
+                        Name = "Liam",
+                        Surname = "Hyde",
+                        InsuranceNumber = "0000000022",
+                        RegionId = 3,
+                    });
+                }catch(DbUpdateException e)
+                {
+                    Console.WriteLine("Pizdec \n" + e);
                 }
             }
+            using (AppDbContext dBContext = DBFactory.CreateDbContext(args))
+            {
+                IPatientRepository patient = new PatientRepository(dBContext);
+
+                foreach (Patient patients in patient.GetAllAsync().Result)
+                {
+                    Console.WriteLine($"{patients.Name} {patients.Surname} lives in Region");
+                }
 
 
+
+            }
         }
     }
 }
