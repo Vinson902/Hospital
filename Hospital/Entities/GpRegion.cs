@@ -7,7 +7,7 @@ namespace Hospital.Entities
 {/// <summary>
 /// represents a cross reference table
 /// </summary>
-    public class GpRegion
+    public class GpRegion : AuditableEntity
     {/// <summary>
     /// Reference key(Region.Id)
     /// </summary>
@@ -27,5 +27,6 @@ namespace Hospital.Entities
         /// </summary>
         public GP GP { get; set; }
         public GpRegion() { }//test, probably unnecessarily
+        
     }
 }

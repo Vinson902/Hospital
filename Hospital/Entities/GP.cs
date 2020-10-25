@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Hospital.Entities
 {/// <summary>
@@ -14,6 +15,7 @@ namespace Hospital.Entities
         /// Gp can't be existed without region
         /// implement many to many
         /// </summary>
+        [JsonIgnore]
         public List<GpRegion> GpRegions { get; set; }
         /// <summary>
         /// <c> inherit constuctor</c> <see cref="Hospital.Entities.Person.Person(string, string, string)"/>
